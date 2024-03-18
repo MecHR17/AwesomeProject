@@ -8,10 +8,13 @@ const styles = StyleSheet.create({
   },
   numContainer: {
     alignItems:'flex-end',
-    paddingTop:20
+    paddingTop:20,
+    width:40,
+    overflow:'hidden'
   },
   topNumContainer: {
     paddingLeft:120,
+    height:40
   },
   button: {
     backgroundColor: '#DDDDDD',
@@ -44,11 +47,11 @@ const styles = StyleSheet.create({
     textAlignVertical:'bottom',
     fontSize:15,
     fontWeight:'bold',
-    paddingRight:35
+    paddingRight:36
   },
 });
 
-const GridButton = ({ item, onPress, isSelected, black }) => (
+const GridButton = ({ item, onPress, black }) => (
   <TouchableOpacity
     style={[styles.button, black ? styles.selectedButton : null]}
     onPress={() => onPress(item)}
@@ -56,11 +59,11 @@ const GridButton = ({ item, onPress, isSelected, black }) => (
   </TouchableOpacity>
 );
 
-const GridButtons = ({ data, onPress, selected, colCount, blacks }) => (
+const GridButtons = ({ data, onPress, colCount, blacks }) => (
   <FlatList
     data={data}
     renderItem={({ item }) => (
-      <GridButton item={item} onPress={onPress} isSelected={selected === item}
+      <GridButton item={item} onPress={onPress}
       black={blacks[item]} />
     )}
     keyExtractor={(item) => item.toString()}
@@ -185,8 +188,8 @@ export default function App() {
       <TopNum data={topData} colNum={colCount} />
       <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
         <SideNum data={sideData}/>
-        <GridButtons data={data} onPress={handleButtonPress}
-        selected={selected} colCount={colCount} blacks={board}/>
+        <GridButtons data={data} onPress={handleButtonPress} 
+        colCount={colCount} blacks={board}/>
       </View>
       <TouchableOpacity style={styles.checkButton}
       onPress={() => handleCheck(board,topData,sideData,colCount,setBtnText)}>
