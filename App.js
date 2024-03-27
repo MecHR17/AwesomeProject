@@ -175,8 +175,9 @@ const handleCheck = (board,topData,sideData,colCount,setBtnText) => {
     setBtnText("Check");
   }
 }
-// This is the FlatList Branch.
-// Change inner flexboxes with Flatlist with two columns
+
+//This is the Dynamic Buttons Branch
+//Attempt to make the layout dynamic by removing static button size
 export default function App() {
   const colCount = 6;
   const [btnText,setBtnText] = useState("Check");
