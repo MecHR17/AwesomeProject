@@ -179,7 +179,7 @@ const handleCheck = (board,topData,sideData,colCount,setBtnText) => {
 //This is the Dynamic Buttons Branch
 //Attempt to make the layout dynamic by removing static button size
 export default function App() {
-  const colCount = 6;
+  const colCount = 5;
   const [btnText,setBtnText] = useState("Check");
   const [selected, setSelected] = useState(null);
   const [board, setBoard] = useState(Array.from(
@@ -194,8 +194,8 @@ export default function App() {
   };
   
   const data = Array.from({ length: colCount*colCount }, (_, index) => index); // Example data from 1 to 12
-  const sideData = [[1,2],[1,3],[3],[5],[2,1],[2,1]];
-  const topData = [[2,2],[3],[3],[5],[2,1],[2,1]];
+  const sideData = [[1,2],[1,3],[3],[5],[2,1]];
+  const topData = [[2,2],[3],[3],[5],[2,1]];
   return (
     <View style={{marginTop:30}}>
       <View style={{flexDirection:'row',justifyContent:'center'}}>
