@@ -3,27 +3,31 @@ import { View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native
 
 const styles = StyleSheet.create({
   container: {
-    padding:10,
-    justifyContent:'flex-start',
+    backgroundColor:"#444444",
+    alignItems:'flex-end',
   },
   numContainer: {
     alignItems:'flex-end',
-    paddingTop:20,
-    width:40,
-    overflow:'hidden'
+    justifyContent:'flex-end',
+    backgroundColor:'blue',
+    overflow:'hidden',
+    alignSelf:'flex-end'
   },
   topNumContainer: {
-    paddingLeft:120,
-    height:40
+    alignContent:"flex-end",
+    justifyContent:"flex-end",
+    alignSelf:'flex-end',
+    backgroundColor:'red'
   },
   button: {
-    backgroundColor: '#DDDDDD',
-    padding: 20,
+    backgroundColor: '#EEEEEE',
     margin: 2,
-    borderRadius: 5,
+    borderRadius: 0,
+    height:45,
+    width:45
   },
   selectedButton: {
-    backgroundColor: 'blue', // Change the color when button is selected
+    backgroundColor: 'black', // Change the color when button is selected
   },
   checkButton: {
     backgroundColor: 'blue',
@@ -41,13 +45,18 @@ const styles = StyleSheet.create({
   sideText: {
     fontSize:15,
     fontWeight:'bold',
-    paddingBottom:23
+    margin:2,
+    marginRight:8,
+    height:45,
+    textAlignVertical:"center"
   },
   topText: {
     textAlignVertical:'bottom',
+    textAlign:'center',
     fontSize:15,
+    margin:2,
+    width:45,
     fontWeight:'bold',
-    paddingRight:36
   },
 });
 
@@ -69,6 +78,7 @@ const GridButtons = ({ data, onPress, colCount, blacks }) => (
     keyExtractor={(item) => item.toString()}
     numColumns={colCount}
     contentContainerStyle={styles.container}
+    style={{flexShrink:0,flexGrow:0}}
   />
 );
 
@@ -101,6 +111,7 @@ const SideNum = ({data}) => {
     keyExtractor={(_,index) => index}
     numColumns={1}
     contentContainerStyle={styles.numContainer}
+    style={{}}
   />
 }
 
@@ -167,7 +178,7 @@ const handleCheck = (board,topData,sideData,colCount,setBtnText) => {
 // This is the FlatList Branch.
 // Change inner flexboxes with Flatlist with two columns
 export default function App() {
-  const colCount = 5;
+  const colCount = 6;
   const [btnText,setBtnText] = useState("Check");
   const [selected, setSelected] = useState(null);
   const [board, setBoard] = useState(Array.from(
@@ -182,15 +193,19 @@ export default function App() {
   };
   
   const data = Array.from({ length: colCount*colCount }, (_, index) => index); // Example data from 1 to 12
-  const sideData = [[1,2],[1,3],[3],[5],[2,1]];
-  const topData = [[2,2],[3],[3],[5],[2,1]];
+  const sideData = [[1,2],[1,3],[3],[5],[2,1],[2,1]];
+  const topData = [[2,2],[3],[3],[5],[2,1],[2,1]];
   return (
-    <View style={{flexDirection:'column', justifyContent:'flex-start',marginTop:30}}>
-      <TopNum data={topData} colNum={colCount} />
-      <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
-        <SideNum data={sideData}/>
-        <GridButtons data={data} onPress={handleButtonPress} 
-        colCount={colCount} blacks={board}/>
+    <View style={{marginTop:30}}>
+      <View style={{flexDirection:'row',justifyContent:'center'}}>
+        <View style={{alignItems:'flex-end',flexDirection:'column',backgroundColor:'purple',}}>
+          <TopNum data={topData} colNum={colCount} />
+          <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
+            <SideNum data={sideData}/>
+            <GridButtons data={data} onPress={handleButtonPress} 
+            colCount={colCount} blacks={board}/>
+          </View>
+        </View>
       </View>
       <TouchableOpacity style={styles.checkButton}
       onPress={() => handleCheck(board,topData,sideData,colCount,setBtnText)}>
