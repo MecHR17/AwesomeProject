@@ -175,8 +175,7 @@ const handleCheck = (board,topData,sideData,colCount,setBtnText) => {
     setBtnText("Check");
   }
 }
-// This is the FlatList Branch.
-// Change inner flexboxes with Flatlist with two columns
+
 export default function App() {
   const colCount = 6;
   const [btnText,setBtnText] = useState("Check");
