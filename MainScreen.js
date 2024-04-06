@@ -18,27 +18,12 @@ const styles = StyleSheet.create({
     },
   });
 
-const RandomPuzzle = (cols,rows) => {
-    const board = [];
-    for (let i = 0; i < cols*rows; i++) {
-        if(Math.random()>0.5){
-            board.push(true);
-        }
-        else{
-            board.push(false);
-        }
-    }
-    
-    return NumsFromBoard(board,cols,rows);
-}
-
 export default function App({navigation}) {
     const columns = 7;
     const rows = 7;
     return (
         <TouchableOpacity style={styles.checkButton}
-        onPress={() => navigation.navigate('GameScreen',
-        {cols: columns,rows:rows,puzzle:RandomPuzzle(columns,rows)})}>
+        onPress={() => navigation.navigate('ConfigScreen')}>
             <Text style={styles.buttonText}>Play</Text>
         </TouchableOpacity>
     );
