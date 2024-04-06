@@ -33,8 +33,8 @@ const RandomPuzzle = (cols,rows) => {
 }
 
 export default function App({navigation}) {
-    const columns = 5;
-    const rows = 5;
+    const columns = 7;
+    const rows = 7;
     return (
         <TouchableOpacity style={styles.checkButton}
         onPress={() => navigation.navigate('GameScreen',
