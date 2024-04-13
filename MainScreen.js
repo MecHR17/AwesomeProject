@@ -22,9 +22,16 @@ export default function App({navigation}) {
     const columns = 7;
     const rows = 7;
     return (
+      <View>
         <TouchableOpacity style={styles.checkButton}
         onPress={() => navigation.navigate('ConfigScreen')}>
             <Text style={styles.buttonText}>Play</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.checkButton}
+        onPress={() => navigation.navigate('BrowseScreen')}>
+            <Text style={styles.buttonText}>Browse</Text>
+        </TouchableOpacity>
+      </View>
+
     );
 }
