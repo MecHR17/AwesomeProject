@@ -1,6 +1,59 @@
 import React, { useState } from 'react';
-import { View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, FlatList, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 import NumsFromBoard from './PuzzleFunctions';
+
+const buttonStyle = function(myWidth) {
+  return {
+    backgroundColor: '#EEEEEE',
+    margin: 1.5,
+    borderRadius: 0,
+    height:myWidth,
+    width:myWidth,
+    justifyContent:'center'
+  }
+}
+
+const sideStyle = function(myWidth) {
+  return {
+    fontSize: myWidth*15/45,
+    fontWeight:'bold',
+    margin:1.5,
+    marginRight:8,
+    height:myWidth,
+    textAlignVertical:"center",
+    paddingLeft:5
+  }
+}
+
+const XVisibleStyle = function(myWidth) {
+  return {
+    color:'black',
+    fontWeight:'bold',
+    textAlign:'center',
+    textAlignVertical:'center',
+    fontSize:myWidth*30/45
+  }
+}
+
+const XInvisibleStyle = function(myWidth) {
+  return {
+    color:'#0000',
+    fontWeight:'bold',
+    textAlign:'center',
+    fontSize:myWidth*30/45
+  }
+}
+
+const topStyle = function(myWidth) {
+  return {
+    textAlignVertical:'bottom',
+    textAlign:'center',
+    fontSize:myWidth*15/45,
+    margin:1.5,
+    width:myWidth,
+    fontWeight:'bold',
+  }
+}
 
 const styles = StyleSheet.create({
     container: {
@@ -20,14 +73,6 @@ const styles = StyleSheet.create({
       alignSelf:'flex-end',
       backgroundColor:'#999999'
     },
-    button: {
-      backgroundColor: '#EEEEEE',
-      margin: 1.5,
-      borderRadius: 0,
-      height:45,
-      width:45,
-      justifyContent:'center'
-    },
     selectedButton: {
       backgroundColor: 'black', // Change the color when button is selected
     },
@@ -44,54 +89,24 @@ const styles = StyleSheet.create({
       textAlign:'center',
       fontSize:20
     },
-    XVisible: {
-        color:'black',
-        fontWeight:'bold',
-        textAlign:'center',
-        textAlignVertical:'center',
-        fontSize:30
-    },
-    XInvisible: {
-        color:'#0000',
-        fontWeight:'bold',
-        textAlign:'center',
-        fontSize:30
-    },
-    sideText: {
-      fontSize:15,
-      fontWeight:'bold',
-      margin:1.5,
-      marginRight:8,
-      height:45,
-      textAlignVertical:"center",
-      paddingLeft:5
-    },
-    topText: {
-      textAlignVertical:'bottom',
-      textAlign:'center',
-      fontSize:15,
-      margin:1.5,
-      width:45,
-      fontWeight:'bold',
-    },
   });
   
-  const GridButton = ({ item, onPress, black }) => (
+  const GridButton = ({ item, onPress, black, myWidth }) => (
     <TouchableOpacity
-      style={[styles.button, black ? styles.selectedButton : null]}
+      style={[buttonStyle(myWidth), black ? styles.selectedButton : null]}
       onPress={() => onPress(item)}
       activeOpacity={1}
     >
-        <Text style={[black==null? styles.XVisible: styles.XInvisible]}>X</Text>
+        <Text style={[black==null? XVisibleStyle(myWidth): XInvisibleStyle(myWidth)]}>X</Text>
     </TouchableOpacity>
   );
   
-  const GridButtons = ({ data, onPress, colCount, rowCount, blacks }) => (
+  const GridButtons = ({ data, onPress, colCount, rowCount, blacks, myWidth }) => (
     <FlatList
       data={data}
       renderItem={({ item }) => (
         <GridButton item={item} onPress={onPress}
-        black={blacks[item]} />
+        black={blacks[item]} myWidth={myWidth} />
       )}
       keyExtractor={(item) => item.toString()}
       numColumns={colCount}
@@ -100,15 +115,15 @@ const styles = StyleSheet.create({
     />
   );
   
-  const OneTopNum = ({data}) => {
-    return <Text style={styles.topText}>{data.join("\n")}</Text>
+  const OneTopNum = ({data, myWidth}) => {
+    return <Text style={topStyle(myWidth)}>{data.join("\n")}</Text>
   }
   
-  const TopNum = ({data,colNum}) => {
+  const TopNum = ({data,colNum, myWidth}) => {
     return <FlatList
     data={data}
     renderItem={({ item }) => (
-      <OneTopNum data={item}></OneTopNum>
+      <OneTopNum data={item} myWidth={myWidth}></OneTopNum>
     )}
     keyExtractor={(_,index) => index}
     numColumns={colNum}
@@ -116,15 +131,15 @@ const styles = StyleSheet.create({
   />
   }
   
-  const OneSideNum = ({data}) => {
-    return <Text style={styles.sideText}>{data.join(" ")}</Text>
+  const OneSideNum = ({data, myWidth}) => {
+    return <Text style={sideStyle(myWidth)}>{data.join(" ")}</Text>
   }
   
-  const SideNum = ({data}) => {
+  const SideNum = ({data, myWidth}) => {
     return <FlatList
       data={data}
       renderItem={({ item }) => (
-        <OneSideNum data={item}></OneSideNum>
+        <OneSideNum data={item} myWidth={myWidth}></OneSideNum>
       )}
       keyExtractor={(_,index) => index}
       numColumns={1}
@@ -181,17 +196,24 @@ const styles = StyleSheet.create({
     const sideData = route.params.puzzle[0];
     const topData = route.params.puzzle[1];
 
+    const usableWindowWidth = Dimensions.get('window').width*0.75;
+    const usableWindowHeight = Dimensions.get('window').height*0.75;
+
+    const widthCand = usableWindowWidth/colCount;
+    const heightCand = usableWindowHeight/rowCount;
+
+    const myWidth = (widthCand>heightCand)?heightCand:widthCand;
     /*const sideData = [[1,2],[1,3],[3],[5],[2,1]];
     const topData = [[2,2],[3],[3],[5],[2,1]];*/
     return (
       <View style={{marginTop:30}}>
         <View style={{flexDirection:'row',justifyContent:'center'}}>
           <View style={{alignItems:'flex-end',flexDirection:'column',backgroundColor:'#999999',}}>
-            <TopNum data={topData} colNum={rowCount} />
+            <TopNum data={topData} colNum={colCount} myWidth={myWidth}/>
             <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
-              <SideNum data={sideData}/>
+              <SideNum data={sideData} myWidth={myWidth}/>
               <GridButtons data={data} onPress={handleButtonPress} 
-              colCount={colCount} blacks={board}/>
+              colCount={colCount} blacks={board} myWidth={myWidth}/>
             </View>
           </View>
         </View>
