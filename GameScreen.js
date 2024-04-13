@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     },
   });
   
-  const GridButton = ({ item, onPress, black, x }) => (
+  const GridButton = ({ item, onPress, black }) => (
     <TouchableOpacity
       style={[styles.button, black ? styles.selectedButton : null]}
       onPress={() => onPress(item)}
@@ -86,12 +86,12 @@ const styles = StyleSheet.create({
     </TouchableOpacity>
   );
   
-  const GridButtons = ({ data, onPress, colCount, rowCount, blacks, xes }) => (
+  const GridButtons = ({ data, onPress, colCount, rowCount, blacks }) => (
     <FlatList
       data={data}
       renderItem={({ item }) => (
         <GridButton item={item} onPress={onPress}
-        black={blacks[item]} x={xes[item]} />
+        black={blacks[item]} />
       )}
       keyExtractor={(item) => item.toString()}
       numColumns={colCount}
@@ -161,11 +161,6 @@ const styles = StyleSheet.create({
       (_,index) => false,
     ));
 
-    //X Markings
-    const [xes, setXes] = useState(Array.from(
-        {length: colCount*colCount},
-        (_,index) => false,
-      ));
     const [modex, setModex] = useState(false);
 
     const handleButtonPress = (item) => {
@@ -196,7 +191,7 @@ const styles = StyleSheet.create({
             <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
               <SideNum data={sideData}/>
               <GridButtons data={data} onPress={handleButtonPress} 
-              colCount={colCount} blacks={board} xes={xes}/>
+              colCount={colCount} blacks={board}/>
             </View>
           </View>
         </View>
