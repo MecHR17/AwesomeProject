@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     }
   }
   
-  export default function GameScreen({navigation,route}) {
+  export default function App({navigation,route}) {
     const colCount = route.params.cols;
     const rowCount = route.params.rows;
     const [btnText,setBtnText] = useState("Check");

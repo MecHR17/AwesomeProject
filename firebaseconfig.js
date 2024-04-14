@@ -1,4 +1,3 @@
-import { initializeApp } from 'firebase/app';
 
 // Optionally import the services that you want to use
 // import {...} from "firebase/auth";
@@ -19,6 +18,5 @@ const firebaseConfig = {
   measurementId: 'G-2E1KNBB1RR',
 };
 
-const app = initializeApp(firebaseConfig);
 // For more information on how to access Firebase in your project,
 // see the Firebase documentation: https://firebase.google.com/docs/web/setup#access-firebase

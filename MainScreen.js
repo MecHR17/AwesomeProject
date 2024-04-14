@@ -31,6 +31,10 @@ export default function App({navigation}) {
         onPress={() => navigation.navigate('BrowseScreen')}>
             <Text style={styles.buttonText}>Browse</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={styles.checkButton}
+        onPress={() => navigation.navigate('CreateConfigScreen')}>
+            <Text style={styles.buttonText}>Create</Text>
+        </TouchableOpacity>
       </View>
 
     );
