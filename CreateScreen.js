@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, FlatList, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, FlatList, TouchableOpacity, Text, StyleSheet, Dimensions,TextInput } from 'react-native';
 import NumsFromBoard from './PuzzleFunctions';
-import { getDatabase,ref,set,get,child, DatabaseReference } from "firebase/database";
+import { getDatabase,ref,push} from "firebase/database";
+import { initializeApp } from 'firebase/app';
 
 const buttonStyle = function(myWidth) {
   return {
@@ -41,6 +42,10 @@ const styles = StyleSheet.create({
         margin:5,
         padding:5
     },
+    SideText: {
+        fontSize:20,
+        fontWeight:'bold'
+    },
   });
   
   const GridButton = ({ item, onPress, black, myWidth }) => (
@@ -79,10 +84,9 @@ const styles = StyleSheet.create({
 
   const app = initializeApp(firebaseConfig);
   const db = getDatabase(app);
-  const puzzleref = ref(db,"puzzles");
 
   const UploadPuzzle = (name,board,rownum,colnum,navigation) => {
-    const [row,col] = NumsFromBoard(board);
+    const [row,col] = NumsFromBoard(board,colnum,rownum);
     const rowstr = row.map((val)=>{return val.join(" ")}).join(",");
     const colstr = col.map((val)=>{return val.join(" ")}).join(",");
     const puzzle = {
@@ -92,11 +96,7 @@ const styles = StyleSheet.create({
         "colcount":colnum,
         "rowcount":rownum,
     }
-    puzzleref.push().set(puzzle);
-    navigation.reset({
-        index: 0,
-        routes: [{name: 'Home'}],
-    });
+    push(ref(db,"/puzzles"),puzzle);
   }
 
   export default function App({navigation,route}) {
@@ -137,8 +137,11 @@ const styles = StyleSheet.create({
             </View>
           </View>
         </View>
-        <TextInput onChangeText={setName} value={name}
+        <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
+                <Text style={styles.SideText}>Puzzle Name:</Text>
+                <TextInput onChangeText={setName} value={name}
                 style={styles.TextInput}/>
+        </View>
         <TouchableOpacity style={styles.checkButton}
             onPress={() => UploadPuzzle(name,board,rowCount,colCount,navigation)}>
                 <Text style={styles.buttonText}>Generate Puzzle</Text>

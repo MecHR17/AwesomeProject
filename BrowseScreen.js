@@ -37,9 +37,10 @@ const ListFromNumstring = (numstring) => {
     const one = [];
     numstring.split(",").forEach(element => {
         var inner = [];
-        element.split(" ").forEach(num => {
-            inner.push(parseInt(num));
-        });
+        if(element!="")
+            element.split(" ").forEach(num => {
+                inner.push(parseInt(num));
+            });
         one.push(inner);
     });
     return one;
@@ -60,12 +61,11 @@ const PuzzleList = ({ data, navigation}) => (
     <FlatList
       data={data}
       renderItem={( {item} ) => {
-        console.log("a");
         return <PuzzleCard rowCount={item.rowcount} colCount={item.colcount}
             rows={ListFromNumstring(item.row)} cols={ListFromNumstring(item.col)}
             name={item.name} navigation={navigation}/>
       }}
-      keyExtractor={(item) => item.toString()}
+      keyExtractor={(item) => item.myId}
       numColumns={1}
       contentContainerStyle={styles.container}
       style={{flexShrink:0,flexGrow:0}}
@@ -75,20 +75,19 @@ const PuzzleList = ({ data, navigation}) => (
 export default function App({navigation}) {
     const puzzles = [];
     
-    get(ref(db,'puzzles')).then((snapshot) => {
+    get(ref(db,'/puzzles')).then((snapshot) => {
         if (snapshot.exists()) {
-            snapshot.val().forEach(element => {
+            Object.values(snapshot.val()).forEach(element => {
                 if(element != undefined)
                     puzzles.push(element);
             });
-            console.log(snapshot.val());
         } else {
             console.log("No data available");
         }
         }).catch((error) => {
         console.error(error);
     });
-
+    puzzles.map((item, index) => ({ ...item, "myId": index }));
     return (
         <PuzzleList data={puzzles} navigation={navigation}></PuzzleList>
     );
