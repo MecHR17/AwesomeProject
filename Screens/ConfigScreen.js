@@ -17,6 +17,12 @@ const styles = StyleSheet.create({
       textAlign:'center',
       fontSize:20
     },
+    title:{
+        fontSize:30,
+        fontWeight:'bold',
+        fontStyle:'italic',
+        marginBottom:50,
+    },
     TextInput: {
         backgroundColor:'white',
         fontSize:20,
@@ -51,7 +57,9 @@ export default function App({navigation}) {
     const rarity = 0.5;
 
     return (
-        <View style={{justifyContent:'center',flex:1}}>
+        <View style={{justifyContent:'center',flex:1,alignItems:'center'}}>
+            <Text style={styles.title}>Random Puzzle</Text>
+            
             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                 <Text style={styles.SideText}>Columns:</Text>
                 <TextInput keyboardType='numeric' 
@@ -70,6 +78,7 @@ export default function App({navigation}) {
             puzzle:RandomPuzzle(parseInt(columns),parseInt(rows), rarity )})}>
                 <Text style={styles.buttonText}>Generate Puzzle</Text>
             </TouchableOpacity>
+            
         </View>
     );
 }

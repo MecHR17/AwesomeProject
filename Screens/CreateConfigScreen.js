@@ -24,7 +24,13 @@ const styles = StyleSheet.create({
     SideText: {
         fontSize:20,
         fontWeight:'bold'
-    }
+    },
+    title:{
+        fontSize:30,
+        fontWeight:'bold',
+        fontStyle:'italic',
+        marginBottom:50,
+    },
   });
 
 export default function App({navigation}) {
@@ -34,7 +40,8 @@ export default function App({navigation}) {
     const rarity = 0.5;
 
     return (
-        <View style={{justifyContent:'center',flex:1}}>
+        <View style={{justifyContent:'center',flex:1,alignItems:'center'}}>
+            <Text style={styles.title}>Create Puzzle</Text>
             <View style={{flexDirection:'row', alignItems:'center', justifyContent:'center'}}>
                 <Text style={styles.SideText}>Columns:</Text>
                 <TextInput keyboardType='numeric' 

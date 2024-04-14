@@ -52,7 +52,7 @@ const PuzzleList = ({ data, navigation}) => (
             rows={ListFromNumstring(item.row)} cols={ListFromNumstring(item.col)}
             name={item.name} navigation={navigation}/>
       }}
-      keyExtractor={(item) => item.myId}
+      keyExtractor={(item) => {return item.myId;}}
       numColumns={1}
       contentContainerStyle={styles.container}
       style={{flexShrink:0,flexGrow:0}}
@@ -60,21 +60,24 @@ const PuzzleList = ({ data, navigation}) => (
   );
 
 export default function App({navigation}) {
-    var puzzles = [];
-    
+    const [puzzles,setPuzzles] = useState([]);
+    var tmp = [];
     get(ref(db,'/puzzles')).then((snapshot) => {
         if (snapshot.exists()) {
-            Object.values(snapshot.val()).forEach(element => {
-                if(element != undefined)
-                    puzzles.push(element);
+            Object.values(snapshot.val()).forEach((element,i) => {
+                if(element != undefined){
+                    element.myId = i;
+                    tmp.push(element);
+                }
             });
+            setPuzzles(tmp);
         } else {
             console.log("No data available");
         }
         }).catch((error) => {
         console.error(error);
     });
-    puzzles = puzzles.map((item, index) => ({ ...item, "myId": index }));
+
     return (
         <PuzzleList data={puzzles} navigation={navigation}></PuzzleList>
     );
