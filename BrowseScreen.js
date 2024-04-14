@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native';
 import { initializeApp } from 'firebase/app';
 import { getDatabase,ref,set,get,child } from "firebase/database";
+import db from "./firebaseconfig"
 
 const styles = StyleSheet.create({
     checkButton: {
@@ -18,20 +19,6 @@ const styles = StyleSheet.create({
       fontSize:20
     },
   });
-
-const firebaseConfig = {
-apiKey: 'AIzaSyAN7IzZDe0XLfDuIZFHG8iG_dWXvvPmuyk',
-authDomain: 'nonogram-9ca92.firebaseapp.com',
-databaseURL: 'https://nonogram-9ca92-default-rtdb.firebaseio.com/',
-projectId: 'nonogram-9ca92',
-storageBucket: 'nonogram-9ca92.appspot.com',
-messagingSenderId: '662832630636',
-appId: '1:662832630636:android:cee2a1c3b1ba1d328bc149',
-measurementId: 'G-2E1KNBB1RR',
-};
-
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
 
 const ListFromNumstring = (numstring) => {
     const one = [];
@@ -73,7 +60,7 @@ const PuzzleList = ({ data, navigation}) => (
   );
 
 export default function App({navigation}) {
-    const puzzles = [];
+    var puzzles = [];
     
     get(ref(db,'/puzzles')).then((snapshot) => {
         if (snapshot.exists()) {
@@ -87,7 +74,7 @@ export default function App({navigation}) {
         }).catch((error) => {
         console.error(error);
     });
-    puzzles.map((item, index) => ({ ...item, "myId": index }));
+    puzzles = puzzles.map((item, index) => ({ ...item, "myId": index }));
     return (
         <PuzzleList data={puzzles} navigation={navigation}></PuzzleList>
     );

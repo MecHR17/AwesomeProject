@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, Dimensions,TextInput } from 'react-native';
 import NumsFromBoard from './PuzzleFunctions';
 import { getDatabase,ref,push} from "firebase/database";
-import { initializeApp } from 'firebase/app';
+import db from "./firebaseconfig"
 
 const buttonStyle = function(myWidth) {
   return {
@@ -70,20 +70,6 @@ const styles = StyleSheet.create({
       style={{flexShrink:0,flexGrow:0}}
     />
   );
-  
-  const firebaseConfig = {
-    apiKey: 'AIzaSyAN7IzZDe0XLfDuIZFHG8iG_dWXvvPmuyk',
-    authDomain: 'nonogram-9ca92.firebaseapp.com',
-    databaseURL: 'https://nonogram-9ca92-default-rtdb.firebaseio.com/',
-    projectId: 'nonogram-9ca92',
-    storageBucket: 'nonogram-9ca92.appspot.com',
-    messagingSenderId: '662832630636',
-    appId: '1:662832630636:android:cee2a1c3b1ba1d328bc149',
-    measurementId: 'G-2E1KNBB1RR',
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getDatabase(app);
 
   const UploadPuzzle = (name,board,rownum,colnum,navigation) => {
     const [row,col] = NumsFromBoard(board,colnum,rownum);
@@ -97,6 +83,11 @@ const styles = StyleSheet.create({
         "rowcount":rownum,
     }
     push(ref(db,"/puzzles"),puzzle);
+
+    navigation.reset({
+      index: 0,
+      routes: [{ name: 'MainScreen' }],
+    });
   }
 
   export default function App({navigation,route}) {
