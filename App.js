@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import GameScreen from './GameScreen.js'
-import MainScreen from './MainScreen.js'
-import ConfigScreen from './ConfigScreen.js'
-import BrowseScreen from './BrowseScreen.js'
-import CreateScreen from './CreateScreen.js'
-import CreateConfigScreen from './CreateConfigScreen.js';
+import GameScreen from './Screens/GameScreen.js'
+import MainScreen from './Screens/MainScreen.js'
+import ConfigScreen from './Screens/ConfigScreen.js'
+import BrowseScreen from './Screens/BrowseScreen.js'
+import CreateScreen from './Screens/CreateScreen.js'
+import CreateConfigScreen from './Screens/CreateConfigScreen.js';
 
 //Navigation import
 import {NavigationContainer} from '@react-navigation/native';

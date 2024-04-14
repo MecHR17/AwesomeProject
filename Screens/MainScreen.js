@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet } from 'react-native';
-import NumsFromBoard from './PuzzleFunctions.js'
+import NumsFromBoard from '../HelperFunctions/PuzzleFunctions.js'
 
 const styles = StyleSheet.create({
     checkButton: {

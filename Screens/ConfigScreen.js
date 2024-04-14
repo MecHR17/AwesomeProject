@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native';
-import NumsFromBoard from './PuzzleFunctions.js'
+import NumsFromBoard from '../HelperFunctions/PuzzleFunctions.js'
 import {Dimensions} from 'react-native';
 
 const styles = StyleSheet.create({

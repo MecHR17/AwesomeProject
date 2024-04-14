@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, Dimensions,TextInput } from 'react-native';
-import NumsFromBoard from './PuzzleFunctions';
+import NumsFromBoard from '../HelperFunctions/PuzzleFunctions';
 import { getDatabase,ref,push} from "firebase/database";
-import db from "./firebaseconfig"
+import db from "../HelperFunctions/firebaseconfig"
 
 const buttonStyle = function(myWidth) {
   return {

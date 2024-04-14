@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native';
 import { initializeApp } from 'firebase/app';
 import { getDatabase,ref,set,get,child } from "firebase/database";
-import db from "./firebaseconfig"
+import db from "../HelperFunctions/firebaseconfig"
 
 const styles = StyleSheet.create({
     checkButton: {

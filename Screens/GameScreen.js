@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
-import NumsFromBoard from './PuzzleFunctions';
+import NumsFromBoard from '../HelperFunctions/PuzzleFunctions';
 
 const buttonStyle = function(myWidth) {
   return {
