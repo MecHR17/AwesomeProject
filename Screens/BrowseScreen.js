@@ -3,6 +3,7 @@ import { View, FlatList, TouchableOpacity, Text, StyleSheet, TextInput } from 'r
 import { initializeApp } from 'firebase/app';
 import { getDatabase,ref,set,get,child } from "firebase/database";
 import db from "../HelperFunctions/firebaseconfig"
+import { Card } from '@rneui/themed';
 
 const styles = StyleSheet.create({
     checkButton: {
@@ -34,13 +35,14 @@ const ListFromNumstring = (numstring) => {
 }
 
 const PuzzleCard = ({rowCount,colCount,rows,cols,name,navigation})=>{
-    return <TouchableOpacity style={styles.checkButton}
-            onPress={() => navigation.navigate('GameScreen',
-            {cols: parseInt(colCount),rows:parseInt(rowCount),
-            puzzle:[rows,cols]}) }>
-                <Text style={styles.buttonText}>
-                    {name}
-                </Text>
+    return <TouchableOpacity onPress={() => navigation.navigate('GameScreen',
+    {cols: parseInt(colCount),rows:parseInt(rowCount),
+    puzzle:[rows,cols]}) }>
+        <Card>
+            <Card.Title>{name}</Card.Title>
+            <Card.Divider/>
+            <Text>Dimensions: {rowCount}x{colCount}</Text>
+        </Card>
     </TouchableOpacity>
 }
 //a
