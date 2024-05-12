@@ -9,7 +9,7 @@ const firebaseConfig = {
   projectId: 'nonogram-9ca92',
   storageBucket: 'nonogram-9ca92.appspot.com',
   messagingSenderId: '662832630636',
-  appId: '1:662832630636:android:cee2a1c3b1ba1d328bc149',
+  appId: '1:662832630636:android:5e123b092834c3b78bc149',
   measurementId: 'G-2E1KNBB1RR',
 };
 
