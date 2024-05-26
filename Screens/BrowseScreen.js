@@ -7,9 +7,9 @@ import { Card } from '@rneui/themed';
 
 const styles = StyleSheet.create({
     checkButton: {
-      backgroundColor: 'blue',
+      backgroundColor: '#3C5B6F',
       padding:15,
-      borderRadius:5,
+      borderRadius:15,
       marginHorizontal:100,
       marginTop:10,
     },
@@ -37,7 +37,7 @@ const ListFromNumstring = (numstring) => {
 const PuzzleCard = ({rowCount,colCount,rows,cols,name,navigation})=>{
     return <TouchableOpacity onPress={() => navigation.navigate('GameScreen',
     {cols: parseInt(colCount),rows:parseInt(rowCount),
-    puzzle:[rows,cols]}) }>
+    puzzle:[rows,cols]}) } style={{marginBottom:10}}>
         <Card>
             <Card.Title>{name}</Card.Title>
             <Card.Divider/>
@@ -57,7 +57,7 @@ const PuzzleList = ({ data, navigation}) => (
       keyExtractor={(item) => {return item.myId;}}
       numColumns={1}
       contentContainerStyle={styles.container}
-      style={{flexShrink:0,flexGrow:0}}
+      style={{flexShrink:0,flexGrow:0,}}
     />
   );
 

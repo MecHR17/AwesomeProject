@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, TextInput } from 'react-native';
 
+import { showMessage, hideMessage } from "react-native-flash-message";
+import FlashMessage from "react-native-flash-message";
+
 const styles = StyleSheet.create({
     checkButton: {
-      backgroundColor: 'blue',
+      backgroundColor: '#3C5B6F',
       padding:15,
-      borderRadius:5,
+      borderRadius:15,
       marginHorizontal:100,
       marginTop:10,
     },
@@ -33,6 +36,32 @@ const styles = StyleSheet.create({
     },
   });
 
+const Validate = (navigation,columns,rows) => {
+    if(columns > 15 || rows > 15){
+        showMessage({
+            message: "Puzzle Dimensions can't exceed 15",
+            type: "warning",
+          });
+        return;
+    }
+    if(columns <= 0 || rows <= 0){
+        showMessage({
+            message: "Puzzle Dimensions have to be positive",
+            type: "warning",
+          });
+        return;
+    }
+    if(isNaN(columns) || isNaN(rows)){
+        showMessage({
+            message: "Invalid Dimension values",
+            type: "warning",
+          });
+        return;
+    }
+    navigation.navigate('CreateScreen',
+                {cols: parseInt(columns),rows:parseInt(rows)})
+}
+
 export default function App({navigation}) {
     const [columns,setColumns] = useState('7');
     const [rows,setRows] = useState('7');
@@ -55,11 +84,11 @@ export default function App({navigation}) {
                 style={styles.TextInput}/>
             </View>
             <TouchableOpacity style={styles.checkButton}
-            onPress={() => navigation.navigate('CreateScreen',
-                {cols: parseInt(columns),rows:parseInt(rows)})
+            onPress={() => Validate(navigation,columns,rows)
             }>
                 <Text style={styles.buttonText}>Generate Puzzle</Text>
             </TouchableOpacity>
+            <FlashMessage position="top" floating="true" />
         </View>
     );
 }

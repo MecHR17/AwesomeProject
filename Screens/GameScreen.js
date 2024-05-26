@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import { View, FlatList, TouchableOpacity, Text, StyleSheet, Dimensions } from 'react-native';
 import NumsFromBoard from '../HelperFunctions/PuzzleFunctions';
 
+import Toggle from "react-native-toggle-element";
+import { color } from '@rneui/themed/dist/config';
+
+import { Icon } from '@rneui/themed';
+
 const buttonStyle = function(myWidth) {
   return {
     backgroundColor: '#EEEEEE',
@@ -77,11 +82,13 @@ const styles = StyleSheet.create({
       backgroundColor: 'black', // Change the color when button is selected
     },
     checkButton: {
-      backgroundColor: 'blue',
+      backgroundColor: '#3C5B6F',
       padding:15,
-      borderRadius:5,
+      paddingHorizontal:20,
+      borderRadius:15,
       marginHorizontal:100,
-      marginTop:10,
+      marginTop:"auto",
+      marginBottom:30
     },
     buttonText: {
       color:'white',
@@ -89,6 +96,12 @@ const styles = StyleSheet.create({
       textAlign:'center',
       fontSize:20
     },
+    sliderText: {
+      color:'white',
+      fontWeight:'bold',
+      textAlign:'center',
+      fontSize:20
+    }
   });
   
   const GridButton = ({ item, onPress, black, myWidth }) => (
@@ -206,8 +219,8 @@ const styles = StyleSheet.create({
     /*const sideData = [[1,2],[1,3],[3],[5],[2,1]];
     const topData = [[2,2],[3],[3],[5],[2,1]];*/
     return (
-      <View style={{marginTop:30}}>
-        <View style={{flexDirection:'row',justifyContent:'center'}}>
+      <View style={{marginTop:30, alignItems:"center",flex:1}}>
+        <View style={{flexDirection:'row',justifyContent:'center',marginBottom:20}}>
           <View style={{alignItems:'flex-end',flexDirection:'column',backgroundColor:'#999999',}}>
             <TopNum data={topData} colNum={colCount} myWidth={myWidth}/>
             <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
@@ -217,10 +230,32 @@ const styles = StyleSheet.create({
             </View>
           </View>
         </View>
-        <TouchableOpacity style={styles.checkButton}
-        onPress={() => {setModex(!modex)}}>
-            <Text style={styles.buttonText}>{modex?"X":"O"}</Text>
-        </TouchableOpacity>
+        <Toggle value={modex?false:true} onPress={() => {setModex(!modex)}}
+          disabledTitleStyle={{color:"gray"}}
+          animationDuration={200}
+          leftComponent={
+            <Icon name="cross" type='entypo' color={modex ? "white":"lightgray"} size={30}/>
+          }
+          rightComponent={
+            <Icon name="square-full" type='font-awesome-5' color={modex ? "lightgray":"white"}/>
+          }
+          thumbStyle={{backgroundColor:"purple", justifyContent:'center'}}
+          thumbButton={{
+            width:60,
+            height:60,
+            radius: 30,
+          }}
+          trackBar={{
+            activeBackgroundColor: "#999999",
+            inActiveBackgroundColor: "#999999",
+            borderActiveColor: "black",
+            borderInActiveColor: "black",
+
+            borderWidth: 0,
+            width: 110,
+            height:55,
+          }}>
+        </Toggle>
         <TouchableOpacity style={styles.checkButton}
         onPress={() => handleCheck(board,topData,sideData,colCount,rowCount,setBtnText)}>
           <Text style={styles.buttonText}>{btnText}</Text>

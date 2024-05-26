@@ -17,7 +17,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator>
+      <Stack.Navigator screenOptions={{cardStyle:{backgroundColor:"#F6F5F2"}}} >
         <Stack.Screen name="MainScreen" component={MainScreen} />
         <Stack.Screen name="GameScreen" component={GameScreen} />
         <Stack.Screen name="ConfigScreen" component={ConfigScreen} />

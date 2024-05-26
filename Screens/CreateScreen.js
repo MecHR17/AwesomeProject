@@ -4,6 +4,11 @@ import NumsFromBoard from '../HelperFunctions/PuzzleFunctions';
 import { getDatabase,ref,push} from "firebase/database";
 import db from "../HelperFunctions/firebaseconfig"
 
+import { showMessage, hideMessage } from "react-native-flash-message";
+import FlashMessage from "react-native-flash-message";
+
+const windowHeight  = Dimensions.get('window').height;
+
 const buttonStyle = function(myWidth) {
   return {
     backgroundColor: '#EEEEEE',
@@ -24,11 +29,11 @@ const styles = StyleSheet.create({
       backgroundColor: 'black', // Change the color when button is selected
     },
     checkButton: {
-      backgroundColor: 'blue',
+      backgroundColor: '#3C5B6F',
       padding:15,
-      borderRadius:5,
+      borderRadius:15,
       marginHorizontal:100,
-      marginTop:10,
+      marginTop:windowHeight*0.3,
     },
     buttonText: {
       color:'white',
@@ -72,6 +77,14 @@ const styles = StyleSheet.create({
   );
 
   const UploadPuzzle = (name,board,rownum,colnum,navigation) => {
+    name = name.trim()
+    if (name == ""){
+      showMessage({
+        message: "Name can't be empty.",
+        type: "warning",
+      });
+      return;
+    }
     const [row,col] = NumsFromBoard(board,colnum,rownum);
     const rowstr = row.map((val)=>{return val.join(" ")}).join(",");
     const colstr = col.map((val)=>{return val.join(" ")}).join(",");
@@ -119,7 +132,7 @@ const styles = StyleSheet.create({
     /*const sideData = [[1,2],[1,3],[3],[5],[2,1]];
     const topData = [[2,2],[3],[3],[5],[2,1]];*/
     return (
-      <View style={{marginTop:30}}>
+      <View style={{marginTop:30,overflow:"hidden",flex:1}}>
         <View style={{flexDirection:'row',justifyContent:'center'}}>
           <View style={{alignItems:'flex-end',flexDirection:'column',backgroundColor:'#999999',}}>
             <View style={{flexDirection:'row', justifyContent:'flex-start'}}>
@@ -137,6 +150,7 @@ const styles = StyleSheet.create({
             onPress={() => UploadPuzzle(name,board,rowCount,colCount,navigation)}>
                 <Text style={styles.buttonText}>Generate Puzzle</Text>
         </TouchableOpacity>
+        <FlashMessage position="top" floating="true" />
       </View>
     );
   }
