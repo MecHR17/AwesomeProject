@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Nonogram",
-    "slug": "Nonogram",
+    "slug": "nonogram",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -30,8 +30,9 @@
     },
     "extra": {
       "eas": {
-        "projectId": "5b112478-3734-4149-9a94-64553251bbbb"
+        "projectId": "202f5244-4862-4e63-9ed8-da2f45835cd0"
       }
-    }
+    },
+    "owner": "mechr"
   }
 }

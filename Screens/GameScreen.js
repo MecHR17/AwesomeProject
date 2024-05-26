@@ -248,10 +248,10 @@ const styles = StyleSheet.create({
           trackBar={{
             activeBackgroundColor: "#999999",
             inActiveBackgroundColor: "#999999",
-            borderActiveColor: "black",
-            borderInActiveColor: "black",
-
-            borderWidth: 0,
+            borderActiveColor: "#F6F5F2",
+            borderInActiveColor: "#F6F5F2",
+            radius:50,
+            borderWidth: 2,
             width: 110,
             height:55,
           }}>

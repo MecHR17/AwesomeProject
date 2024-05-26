@@ -88,7 +88,7 @@ export default function App({navigation}) {
             }>
                 <Text style={styles.buttonText}>Generate Puzzle</Text>
             </TouchableOpacity>
-            <FlashMessage position="top" floating="true" />
+            <FlashMessage position="top" floating={true} />
         </View>
     );
 }

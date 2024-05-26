@@ -106,7 +106,7 @@ export default function App({navigation}) {
             onPress={() => Validate(navigation,columns,rows,rarity)}>
                 <Text style={styles.buttonText}>Generate Puzzle</Text>
             </TouchableOpacity>
-            <FlashMessage position="top" floating="true" />
+            <FlashMessage position="top" floating={true} />
         </View>
     );
 }
