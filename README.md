@@ -1,4 +1,4 @@
-#NONOGRAM WITH REACT NATIVE#
+## NONOGRAM WITH REACT NATIVE
 
 - Maximum 15x15 playable board
 - User created levels
